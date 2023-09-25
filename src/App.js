@@ -1,7 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
-import qs from 'qs';
 
 async function yahooLogin(code) {
   console.log(`authing with yahoo using code: ${code}`)
@@ -39,13 +37,15 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={'https://i.insider.com/651146b1e2c0220019ef3ba5?width=500'} alt='TayTay' />
         <p>
           Welcome to the Guillotine League
         </p>
-        <a href={'https://api.login.yahoo.com/oauth2/request_auth?client_id=dj0yJmk9NGVBekNWbUplUndJJmQ9WVdrOWNYTldWakZUWlhRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTJk&redirect_uri=https://kmcnerney.github.io/fantasy-football&response_type=code'}>
-          Login
-        </a>
+        <h1>
+          <a href={'https://api.login.yahoo.com/oauth2/request_auth?client_id=dj0yJmk9NGVBekNWbUplUndJJmQ9WVdrOWNYTldWakZUWlhRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTJk&redirect_uri=https://kmcnerney.github.io/fantasy-football&response_type=code'}>
+            Login here
+          </a>
+        </h1>
       </header>
     </div>
   );
