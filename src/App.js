@@ -3,25 +3,22 @@ import './App.css';
 import axios from 'axios';
 import qs from 'qs';
 
-async function yahooLogin(yahoo_code) {
-  console.log(`authing with yahoo using code: ${yahoo_code}`)
+async function yahooLogin(code) {
+  console.log(`authing with yahoo using code: ${code}`)
 
   try {
-
     const proxyurl = 'https://corsproxy.io/?'
-    const options = {
-      method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: qs.stringify({
+    const token = await axios.post(proxyurl + 'https://api.login.yahoo.com/oauth2/get_token', 
+      {
         grant_type: 'authorization_code',
-        redirect_url: 'https://kmcnerney.github.io/fantasy-football',
+        code,
+        redirect_uri: 'https://kmcnerney.github.io/fantasy-football',
         client_id: 'dj0yJmk9NGVBekNWbUplUndJJmQ9WVdrOWNYTldWakZUWlhRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTJk',
         client_secret: '67ff91fb2b422cd6fe3a947fe4dadb4ace874b2b'
-      }),
-      url: proxyurl + 'https://api.login.yahoo.com/oauth2/get_token',
-    };
+      },
+      {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+    )
 
-    const token = await axios.get(options)
     console.log(`yahoo auth succeeded and got token`, token)
     return token
   } catch (e) {
