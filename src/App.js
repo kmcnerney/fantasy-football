@@ -42,7 +42,7 @@ function App() {
           Welcome to the Guillotine League
         </p>
         <h1>
-          <a href={'https://api.login.yahoo.com/oauth2/request_auth?client_id=dj0yJmk9NGVBekNWbUplUndJJmQ9WVdrOWNYTldWakZUWlhRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTJk&redirect_uri=https://kmcnerney.github.io/fantasy-football&response_type=code'}>
+          <a href={'https://api.login.yahoo.com/oauth2/request_auth?client_id=dj0yJmk9NGVBekNWbUplUndJJmQ9WVdrOWNYTldWakZUWlhRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTJk&redirect_uri=https://guillotine.football&response_type=code'}>
             Login here
           </a>
         </h1>
