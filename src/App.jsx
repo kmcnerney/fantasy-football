@@ -136,7 +136,7 @@ export default class App extends React.Component {
     console.log('in App.render', this.state)
     return (
       <div className="App">
-        <h3>Guillotine League</h3>
+        <h3>Guillotine League (this is broken, sorry!)</h3>
 
         <p>
           <a target="_blank" href="https://mattbernstein.shinyapps.io/GuillotineApp/">Historical reporting</a>
@@ -147,11 +147,11 @@ export default class App extends React.Component {
           this.state.scores.length 
           ? (
             <DataTable 
-            columns={columns} 
-            data={this.state.scores || []} 
-            getTableProps={tableProps}
-            getRowProps={rowProps}
-          />
+              columns={columns} 
+              data={this.state.scores || []} 
+              getTableProps={tableProps}
+              getRowProps={rowProps}
+            />
           )
           : (
             <p>Loading live standings...</p>
