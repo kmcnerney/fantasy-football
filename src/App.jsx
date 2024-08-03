@@ -1,6 +1,6 @@
 import './App.css'
 import axios from 'axios'
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 
 import DataTable from './DataTable'
 
@@ -77,7 +77,7 @@ const SCORES_ENDPOINT = 'https://guillotine-api-9268ebd959e7.herokuapp.com/live-
 // }
 
 
-async function getLiveScores(code) {
+async function getLiveScores() {
   try {
     const scores = await axios.get(SCORES_ENDPOINT)
     return scores.data
@@ -88,19 +88,11 @@ async function getLiveScores(code) {
 }
 
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      scores: [],
-      yahooApiToken: window.sessionStorage.getItem('yahoo_api_token')
-    };
-  }
+const App = () => {
+  const [scores, setScores] = useState([])
+  const [yahooApiToken, setYahooApiToken] = useState(window.sessionStorage.getItem('yahoo_api_token'))
 
-  async componentDidMount() {
-    console.log('in App.componentDidMount', this.state)
-
-
+  useEffect(() => {
     // const search = window.location.search;
     // const params = new URLSearchParams(search);
     // const yahooAuthRequestCode = params.get('code')
@@ -112,53 +104,46 @@ export default class App extends React.Component {
     //   const authResponse = await yahooLogin(yahooAuthRequestCode)
     //   const token = authResponse?.data?.access_token 
     //   window.sessionStorage.setItem('yahoo_api_token', token)
-    //   this.setState({
-    //     yahooApiToken: token
-    //   })
+    //   setYahooApiToken(token)
     // }
 
-    const scores = await getLiveScores()
-    this.setState({
-      scores: scores.map((scoreEl, i) => {
+    getLiveScores().then(results => {
+      results = results.map((r, i) => {
         return {
-          ...scoreEl,
-          projectedPts: scoreEl.projectedPts.toFixed(2),
-          currentPts: scoreEl.currentPts.toFixed(2),
+          ...r,
+          projectedPts: r.projectedPts.toFixed(2),
+          currentPts: r.currentPts.toFixed(2),
           rank: i + 1,
-          active: scoreEl.projectedPts > 0
+          active: r.projectedPts > 0
         }
       })
+      setScores(results);
+    }).catch(e => {
+      console.log('Failed getting live scores', e)
     })
-    
-  }
+  }, [])
 
-  render() {
-    console.log('in App.render', this.state)
-    return (
-      <div className="App">
-        <h3>Guillotine League (this is broken, sorry!)</h3>
+  return (
+    <div className="App">
+      <h3>Guillotine League (this is broken, sorry!)</h3>
 
-        <p>
-          <a target="_blank" href="https://mattbernstein.shinyapps.io/GuillotineApp/">Historical reporting</a>
-          &nbsp;brought to you by Bernie
-        </p>
+      <p>
+        <a target="_blank" href="https://mattbernstein.shinyapps.io/GuillotineApp/">Historical reporting</a>
+        &nbsp;brought to you by Bernie
+      </p>
 
-        {
-          this.state.scores.length 
-          ? (
-            <DataTable 
-              columns={columns} 
-              data={this.state.scores || []} 
-              getTableProps={tableProps}
-              getRowProps={rowProps}
-            />
-          )
-          : (
-            <p>Loading live standings...</p>
-          )
-
-        }
-      </div>
-    )
-  }
+      {scores.length ? (
+        <DataTable 
+          columns={columns} 
+          data={scores} 
+          getTableProps={tableProps}
+          getRowProps={rowProps}
+        />
+      ) : (
+        <p>Loading live standings...</p>
+      )}
+    </div>
+  )
 }
+
+export default App
