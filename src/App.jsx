@@ -125,7 +125,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <h3>Guillotine League (this is broken, sorry!)</h3>
+      <h3>Guillotine League</h3>
 
       <p>
         <a target="_blank" href="https://mattbernstein.shinyapps.io/GuillotineApp/">Historical reporting</a>
