@@ -74,9 +74,9 @@ const rowProps = ({values}) => {
 //   }
 // }
 
-//const SCORES_ENDPOINT = 'https://app.guillotine.football/live-projections'
+const SCORES_ENDPOINT = 'https://app.guillotine.football/live-projections'
 //const SCORES_ENDPOINT = 'http://localhost:3001/live-projections'
-const SCORES_ENDPOINT = 'https://66c0-96-231-48-247.ngrok-free.app/live-projections'
+//const SCORES_ENDPOINT = 'https://66c0-96-231-48-247.ngrok-free.app/live-projections'
 async function getLiveScores() {
   try {
     const scores = await axios.get(SCORES_ENDPOINT, { 
