@@ -17,8 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build --cname guillotine.football",
+    "deploy": "(cd ../kmcnerney.github.io && cp -r ../fantasy-football/src/* ./src/ && npm run deploy)",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
