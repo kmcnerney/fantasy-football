@@ -76,7 +76,7 @@ const rowProps = ({values}) => {
 
 const SCORES_ENDPOINT = 'https://app.guillotine.football/live-projections'
 //const SCORES_ENDPOINT = 'http://localhost:3001/live-projections'
-//const SCORES_ENDPOINT = 'https://66c0-96-231-48-247.ngrok-free.app/live-projections'
+//const SCORES_ENDPOINT = 'https://nearby-uniquely-frog.ngrok-free.app/live-projections'
 async function getLiveScores() {
   try {
     const scores = await axios.get(SCORES_ENDPOINT, { 
@@ -92,6 +92,7 @@ async function getLiveScores() {
 
 const App = () => {
   const [scores, setScores] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [yahooApiToken, setYahooApiToken] = useState(window.sessionStorage.getItem('yahoo_api_token'))
 
   useEffect(() => {
@@ -109,6 +110,7 @@ const App = () => {
     //   setYahooApiToken(token)
     // }
 
+    setIsLoading(true)
     getLiveScores().then(results => {
       results = results.map((r, i) => {
         return {
@@ -122,8 +124,27 @@ const App = () => {
       setScores(results);
     }).catch(e => {
       console.log('Failed getting live scores', e)
+    }).finally(() => {
+      setIsLoading(false)
     })
   }, [])
+
+  const liveStandingsComponent = () => {
+    if (isLoading) {
+      return <p>Loading live standings...</p>
+    } else if (scores.length) {
+      return (
+        <DataTable 
+          columns={columns} 
+          data={scores} 
+          getTableProps={tableProps}
+          getRowProps={rowProps}
+        />
+      )
+    } else {
+      return <p>Sorry, yahoo login failed</p>
+    }
+  }
 
   return (
     <div className="App">
@@ -134,16 +155,7 @@ const App = () => {
         &nbsp;brought to you by Bernie
       </p>
 
-      {scores.length ? (
-        <DataTable 
-          columns={columns} 
-          data={scores} 
-          getTableProps={tableProps}
-          getRowProps={rowProps}
-        />
-      ) : (
-        <p>Loading live standings...</p>
-      )}
+      {liveStandingsComponent()}
     </div>
   )
 }
