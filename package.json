@@ -17,7 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "deploy": "(cd ../kmcnerney.github.io && cp -r ../fantasy-football/src/* ./src/ && npm run deploy)",
+    "deploy": "(cd ../kmcnerney.github.io && cp -r ../fantasy-football/src/* ./src/ && cp -r ../fantasy-football/public/* ./public/ && npm run deploy)",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
