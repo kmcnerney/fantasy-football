@@ -75,7 +75,7 @@ const rowProps = ({values}) => {
 // }
 
 const SCORES_ENDPOINT = 'https://app.guillotine.football/live-projections'
-//const SCORES_ENDPOINT = 'http://localhost:3001/live-projections'
+//const SCORES_ENDPOINT = 'http://localhost:4000/live-projections'
 //const SCORES_ENDPOINT = 'https://nearby-uniquely-frog.ngrok-free.app/live-projections'
 async function getLiveScores() {
   try {
